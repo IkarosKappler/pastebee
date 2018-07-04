@@ -1,0 +1,17 @@
+{
+    "name": "ikaroskappler/pastebee",
+    "description": "An open source paste bin using illuminate/eloquent.",
+    "license" : "GPL-3.0-only",
+    "authors": [ { "name" : "Ikaros Kappler", "email" : "ika@int2byte.de" } ],
+    "type": "project",
+    "require": {
+	"illuminate/database": "5.1.8"
+    },
+    "autoload": {
+	"psr-4":
+	{ "Controllers\\": "app/controllers/",
+	  "Models\\": "app/models/"
+	  
+	}
+    }
+}
