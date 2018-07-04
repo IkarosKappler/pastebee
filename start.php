@@ -7,7 +7,6 @@ require 'app/controllers/PasteController.php';
 require 'config.php';
 
 
-
 use Models\Database;
  
 //Boot Database Connection
