@@ -1,0 +1,25 @@
+DirectoryIndex index.html index.php
+
+# remove the next 3 lines if you see a 500 server error
+# php_flag register_globals off
+# php_flag magic_quotes_gpc off
+# php_value display_errors 0
+
+FileETag none
+ServerSignature Off
+
+Options All -Indexes
+
+# This is for the access control (disabled)
+# <IfModule mod_headers.c>    
+#     Header set Access-Control-Allow-Origin *
+# </IfModule>
+
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   # Use THE_REQUEST to match URL, otherwise double slashes will be stripped
+#   RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^/]+)/([^\s]*)\s [NC]
+#   RewriteRule ^/create$ create.php [L,QSA,NE]
+#   RewriteRule ^usage$ usage.txt 
+#   RewriteRule ^([0-9a-zA-Z]{1,6})$ show.php?url=$1 [L]
+#</IfModule>

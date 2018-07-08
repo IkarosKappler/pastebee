@@ -1,0 +1,68 @@
+/**
+ * @author  Ikaros Kappler
+ * @date    2018-07-06
+ * @version 1.0.0
+ **/
+
+
+
+body {
+    display      : block;
+    margin       : 0px;
+    padding      : 0px;
+    height       : 100%;
+}
+
+.pastebee header {
+    width        : 100%;
+    height       : 42px;
+    padding-left : 12px;
+}
+
+.pastebee .linenos {
+    position     : absolute;
+    left         : 0px;
+    top          : 42px;
+    display      : inline-block;
+    width        : 32px;
+    height       : calc( 100% - 42px );
+    z-index      : -1000;
+    text-align   : right;
+}
+
+.pastebee textarea {
+    position     : absolute;
+    left         : 32px;
+    top          : 42px;
+    background   : transparent;
+    display      : inline-block;
+    width        : calc( 100% - 64px );
+    height       : calc( 100% - 42px );
+    resize       : none;
+    box-sizing   : border-box;
+}
+
+/* Helper classes */
+.center-v {
+    position     : relative;
+    top          : 50%;
+    transform    : translateY(-50%);
+}
+
+.mtop-transition-0px {
+    margin-top         : 0px;
+    webkit-transition  : margin-top .5s;
+       moz-transition  : margin-top .5s;
+        ms-transition  : margin-top .5s;
+         o-transition  : margin-top .5s;
+           transition  : margin-top .5s;
+}
+
+.mtop-transition-36px {
+    margin-top         : -36px;
+    webkit-transition  : margin-top .5s;
+       moz-transition  : margin-top .5s;
+        ms-transition  : margin-top .5s;
+         o-transition  : margin-top .5s;
+           transition  : margin-top .5s;
+}

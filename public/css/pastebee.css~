@@ -1,0 +1,10 @@
+/**
+ * @author  Ikaros Kappler
+ * @date    2018-07-06
+ * @version 1.0.0
+ **/
+
+.pastebee textarea {
+    width : 100%;
+    height : 100%; 
+}

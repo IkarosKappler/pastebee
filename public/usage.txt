@@ -1,0 +1,5 @@
+# Usage
+
+Create: POST /create
+Show: GET /{key}
+

@@ -1,0 +1,32 @@
+/**
+ * @author  Ikaros Kappler
+ * @date    2018-07-06
+ * @version 1.0.0
+ **/
+
+.pastebee {
+    background   : #003333;
+    font-family  : "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size    : 16pt;
+}
+
+.pastebee header {
+    background   : #c89800;
+    color        : #ffffff; 
+}
+
+.font-mono {
+    font-family  : monospace;
+    color        : #c8c8c8;
+    font-size    : 13px;
+}
+
+.pastebee .linenos {
+    border       : transparent;
+    outline      : none;
+}
+
+.pastebee textarea {
+    border       : transparent;
+    outline      : none;
+}

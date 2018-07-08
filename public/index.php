@@ -1,20 +1,23 @@
-<?php
-require '../start.php';
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>pastebee</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Another pastebin app">
+    <meta name="keywords" content="pastebee, pastebin">
+    <meta name="author" content="Ikaros Kappler">
+    <meta name="date" content="2018-07-06">
 
+    <link rel="stylesheet" type="text/css" media="screen" href="css/pastebee.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/theme.default.css">
+    <script src="js/pastebee.js"></script>
+  </head>
 
-use Models\Paste; 
-use Controllers\PasteController; 
- 
-// Import user controller
-$paste = PasteController::create_paste(
-    'ika', // username
-    'My first pastebee', // title
-    'A record to demonstrate how to create new records', // description
-    'test1234' // content
-);
-
-
-
-echo "OK (this whole thing is still extremly under construction. Do not use it yet)";
-
-?>
+  <body class="pastebee">
+    <header>
+      <div class="center-v">pastebee | <button type="button" id="btn-save">Save</button></div>
+    </header>
+    <div class="linenos font-mono">&gt;</div>
+    <textarea class="font-mono"></textarea>
+  </body>
+</html>
