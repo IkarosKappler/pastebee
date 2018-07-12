@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author  Ikaros Kappler
+ * @date    2018-07-12
+ * @version 1.0.0
+ **/
+
 require '../start.php';
 require '../inc/class.RequestValidator.inc.php';
 
@@ -7,18 +13,15 @@ use Controllers\PasteController;
 
 
 header( 'Content-Type: application/json; charset=utf-8' );
-if( $_SERVER['REQUEST_METHOD'] != 'POST' ) {
+if( $_SERVER['REQUEST_METHOD'] != 'GET' ) {
     header('HTTP/1.1 403 Bad Request');
     die( json_encode(array( 'message'=>'Request method not supported.')) );
 }
 
 $validator = new RequestValidator( [
-    'user' => '',
-    'title' => '',
-    'description' => '',
-    'content' => 'required|min:1|max:2048'
+    'hash' => 'required|min:1|max:256'
 ] );
-$sanitized = $validator->validate( $_POST );
+$sanitized = $validator->validate( $_GET );
 if( !$sanitized ) {
     header('HTTP/1.1 403 Bad Request');
     die( json_encode(['message'=>'There were '.$validator->errorCount.' error(s).',
@@ -26,12 +29,11 @@ if( !$sanitized ) {
     ]) );
 }
 
-$sanitized['hash'] = hash('sha256', $sanitized['content'].date('YmdHis').rand(1,65535) );
-
-// Import user controller
-$paste = PasteController::create_paste( $sanitized );
+$paste = Paste::where('hash',$sanitized['hash'])->get()->first();
 
 
-echo json_encode( array('message'=>'OK', 'hash'=>$sanitized['hash'] ) );
+
+
+echo json_encode( array('message'=>'OK', 'paste' => $paste ) );
 
 ?>
