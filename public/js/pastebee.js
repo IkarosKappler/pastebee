@@ -106,8 +106,14 @@
 	if( !mobileAndTabletcheck() ) {
 	    var header = document.getElementsByTagName('header')[0];
 	    addClass( header, 'mtop-transition-0px' );
-	    header.addEventListener('mouseenter', function() { removeClass(header,'mtop-transition-36px'); } );
-	    header.addEventListener('mouseleave', function() { addClass(header,'mtop-transition-36px'); } );
+	    // Show menu bar if mouse pointer is close enough
+	    document.body.addEventListener('mousemove', function(event) {
+		if( event.clientY < 76 )
+		    removeClass(header,'mtop-transition-36px');
+		else
+		    addClass(header,'mtop-transition-36px');
+	    } );
+
 	    addClass( header, 'mtop-transition-36px' );
 	}
 
