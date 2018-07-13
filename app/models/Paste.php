@@ -9,9 +9,17 @@ namespace Models;
 use \Illuminate\Database\Eloquent\Model;
  
 class Paste extends Model {
-     
+
+    /**
+     * The database table to use.
+     **/
     protected $table = 'pastes';
-    protected $fillable = ['username','title','hash','content'];
+
+    
+    /**
+     * Fillable attributes.
+     **/
+    protected $fillable = ['username','title','filename','hash','mime','content','hashed_ip'];
 
     
 }

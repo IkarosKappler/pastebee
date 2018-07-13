@@ -9,8 +9,14 @@ namespace Controllers;
 use Models\Paste;
 
 class PasteController {
-    
-    public static function create_paste( $data )
+
+    /**
+     * Creates a new paste in the 'pastes' table by using the 'Paste' model.
+     *
+     * @param Array The data to use.
+     * @return The newly created paste.
+     **/
+    public static function create_paste( Array $data )
     {
         $paste = Paste::create( $data );
         return $paste;

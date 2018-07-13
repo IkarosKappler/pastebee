@@ -5,6 +5,7 @@
  **/
 
 (function() {
+    'use strict';
 
     // Mobile and tablet list from
     //    http://detectmobilebrowsers.com/
@@ -47,6 +48,7 @@
 	}
     }
 
+    /*
     function sendGETRequest( url, data, options )
     {
 	var request = new XMLHttpRequest();
@@ -66,6 +68,7 @@
 	};	
 	request.send();
     }
+    */
 
     
     function sendPOSTRequest( url, data, options )
@@ -74,17 +77,24 @@
 	request.open('POST', url, true);
 	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	request.onload = function() {
-	    if (this.status >= 200 && this.status < 400) {
+	    if (this.status == 200 ) { //  >= 200 && this.status < 400) {
 		// Success!
-		var resp = this.response;
+		// var resp = this.response;
+		if( options.onComplete )
+		    options.onComplete( this );
 	    } else {
 		// We reached our target server, but it returned an error
+		console.log( 'Status ' + this.status );
+		if( options.onError )
+		    options.onError( this );
 	    }
 	};
 	request.onerror = function() {
 	    // There was a connection error of some sort
+	    console.error( "Error." );
 	};
 	request.send(data);
+	//request.send(urlEncodedData);
     }
 
     
@@ -103,7 +113,27 @@
 
 	document.getElementById('btn-save').addEventListener('click', function(e) {
 	    console.log( 'save ...' );
-	    sendSaveRequest('/');
+	    var content = document.getElementById('content').value;
+	    var data = new FormData();
+	    data.append('content',content);
+	    sendPOSTRequest( '/create.php',
+			     data,
+			     { onComplete : function( request ) {
+				 console.log( request );
+				 var response = JSON.parse( request.response );
+				 console.log( response );
+				 window.location.href = "/?hash=" + response.hash;
+			     },
+			       onError : function( request ) {
+				   console.error( request );
+			       }
+			     }
+			   );
+	} );
+
+	document.getElementById('btn-new').addEventListener('click', function(e) {
+	    console.log( 'new ...' );
+	    window.location.href = "/";
 	} );
 	
     }

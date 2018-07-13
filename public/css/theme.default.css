@@ -16,14 +16,13 @@
 }
 
 .font-mono {
-    font-family  : monospace;
     color        : #c8c8c8;
-    font-size    : 13px;
 }
 
 .pastebee .linenos {
     border       : transparent;
     outline      : none;
+    background   : #002222;
 }
 
 .pastebee textarea {
