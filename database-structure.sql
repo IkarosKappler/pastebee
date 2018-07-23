@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 13, 2018 at 11:32 PM
+-- Generation Time: Jul 23, 2018 at 10:35 PM
 -- Server version: 5.7.22
 -- PHP Version: 7.2.7-1+0~20180622080852.23+jessie~1.gbpfd8e2e
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `pastes` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `hashed_ip` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'The hashed sender IP to avoid spamming.'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `pastes` (
 -- Indexes for table `pastes`
 --
 ALTER TABLE `pastes`
- ADD PRIMARY KEY (`id`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `hash` (`hash`), ADD KEY `hashed_ip` (`hashed_ip`), ADD KEY `created_at` (`created_at`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -58,7 +58,7 @@ ALTER TABLE `pastes`
 -- AUTO_INCREMENT for table `pastes`
 --
 ALTER TABLE `pastes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
