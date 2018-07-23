@@ -75,7 +75,8 @@
     {
 	var request = new XMLHttpRequest();
 	request.open('POST', url, true);
-	request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	//request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	//request.setRequestHeader('Content-Type', 'multipart/form-data; charset=UTF-8');
 	request.onload = function() {
 	    if (this.status == 200 ) { //  >= 200 && this.status < 400) {
 		// Success!
@@ -118,16 +119,19 @@
 	}
 
 	document.getElementById('btn-save').addEventListener('click', function(e) {
+	    e.preventDefault();
 	    console.log( 'save ...' );
 	    var content = document.getElementById('content').value;
-	    var data = new FormData();
-	    data.append('content',content);
+	    //var data = new FormData();
+	    //data.append('content',content);
+	    var data = new FormData( document.getElementById('pastebee-form') );
 	    sendPOSTRequest( '/create.php',
 			     data,
 			     { onComplete : function( request ) {
 				 console.log( request );
 				 var response = JSON.parse( request.response );
 				 console.log( response );
+				 console.log( "/?hash=" + response.hash );
 				 window.location.href = "/?hash=" + response.hash;
 			     },
 			       onError : function( request ) {
