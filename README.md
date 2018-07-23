@@ -1,6 +1,8 @@
 # Pastebee
 
-A PHP pastebin implementation using illuminate/eloquent.
+A PHP pastebin implementation using the illuminate/eloquent library.
+
+![Screenshot of the pastebee protoype](resources/Screenshot-pastebee-20180723_0.png)
 
 
 ## Installation
