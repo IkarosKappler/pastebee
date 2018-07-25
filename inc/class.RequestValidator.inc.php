@@ -51,27 +51,30 @@ class RequestValidator {
                 try {
                     $sanitized[$name] = RequestValidator::validateRule( $name, $rule, array_key_exists($name,$request) ? $request[$name] : null );
                 } catch( Exception $e ) {
-                    $this->errors[$name] = $e->getMessage();
+		    if( !$this->errors[$name] )
+		    	$this->errors[$name] = [];
+                    $this->errors[$name][] = $e->getMessage();
                     $this->errorCount++;
                     continue;
                 }
             }
         }
-        if( $errors == 0 ) return $sanitized;
-        else               return false;
+        if( $this->errorCount == 0 ) return $sanitized;
+        else                         return false;
     }
 
 
     public static function validateRule( string $name, Array $rule, $value ) {
+        // print_r( 'rule=' . $rule[0] . ', ruleV=' . $rule[1] . ', ' . $name .'='. $value );
         switch( $rule[0] ) {
         case 'required':
             if( $value == null ) throw new Exception("Argument '".$name."' is required.");
             break;
         case 'min':
-            if( count($value) < $rule[1] ) throw new Exception("Argument '".$name."' is too short (".count($value)." < ".$rule[1].")");
+            if( strlen($value) < $rule[1] ) throw new Exception("Argument '".$name."' is too short (".strlen($value)." < ".$rule[1].")");
             break;
-        case 'maxn':
-            if( count($value) > $rule[1] ) throw new Exception("Argument '".$name."' is too long (".count($value)." > ".$rule[1].")");
+        case 'max':
+            if( strlen($value) > $rule[1] ) throw new Exception("Argument '".$name."' is too long (".strlen($value)." > ".$rule[1].")");
             break;
         }
         return $value;

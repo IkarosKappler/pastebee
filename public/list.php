@@ -1,7 +1,9 @@
 <?php
 /**
+ * List the keys (hashes) of public pastes, filtered by a search term for the title.
+ * 
  * @author  Ikaros Kappler
- * @date    2018-07-13 (Friday 13th!)
+ * @date    2018-07-25
  * @version 1.0.0
  **/
 
@@ -23,7 +25,7 @@ if( $_SERVER['REQUEST_METHOD'] != 'GET' ) {
 
 // --------- Validate input ---------------------------
 $validator = new RequestValidator( [
-    'hash' => 'required|min:1|max:256'
+    'search' => 'required|min:1|max:256'
 ] );
 $sanitized = $validator->validate( $_GET );
 if( !$sanitized ) {
@@ -36,12 +38,8 @@ if( !$sanitized ) {
 
 
 // --------- Retrieve record by hash ---------------------------
-$paste = Paste::where('hash',$sanitized['hash'])->get()->first();
+$pastes = Paste::where('title','LIKE','%'.$sanitized['search'].'%')->limit(100)->lists('hash','title');
 
-if( !$paste ) {
-    header( 'HTTP/1.1 404 Not Found' );
-    header( 'Content-Type: application/json; charset=utf-8' );
-    die( json_encode(['message'=>'Paste with hash '.$sanitized['hash'].' not found.']) );
-}
 
-return $paste;
+header( 'Content-Type: application/json; charset=utf-8' );
+echo json_encode( $pastes );

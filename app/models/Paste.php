@@ -19,7 +19,7 @@ class Paste extends Model {
     /**
      * Fillable attributes.
      **/
-    protected $fillable = ['username','title','filename','hash','mime','content','hashed_ip'];
+    protected $fillable = ['username','title','filename','hash','mime','content','public','hashed_ip'];
 
     
 }
