@@ -22,7 +22,8 @@ class PasteController {
         // Merge-in additional fields.
         $pasteData = array_merge( $data,
                                   array( 'hashed_ip' => hash('sha256', $_SERVER['REMOTE_ADDR'] ),
-                                         'hash' => hash('sha256', $data['content'].date('YmdHis').rand(1,65535) )
+                                         'hash'      => hash('sha256', $data['content'].date('YmdHis').rand(1,65535) ),
+                                         'public'    => $data['public'] ? '1' : '0'
                                   )
         );
         // Check if N records from the same IP exist from within the last hour.

@@ -29,6 +29,8 @@ $validator = new RequestValidator( [
     'user' => '',
     'title' => '',
     'description' => '',
+    'mime' => '',
+    'public' => 'boolean',
     'content' => 'required|min:1|max:2048'
 ] );
 $sanitized = $validator->validate( $_POST );

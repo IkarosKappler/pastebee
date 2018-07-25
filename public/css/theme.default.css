@@ -6,13 +6,44 @@
 
 .pastebee {
     background   : #003333;
-    font-family  : "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    font-size    : 16pt;
+    font-family  : monospace;
+    font-size    : 10pt;
 }
 
 .pastebee header {
+    font-family  : "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size    : 16pt;
     background   : #f8a800;
     color        : #ffffff; 
+}
+
+.pastebee .info {
+    background   : #004444;
+}
+
+.pastebee .info input, .pastebee .info select {
+    background    : transparent;
+    border-left   : none;
+    border-right  : none;
+    border-top    : none;
+    border-bottom : 1px solid #f8a800;    
+    height        : 18px;
+    margin        : 2px;
+    outline       : none;
+    color         : white;
+}
+
+.pastebee .info select option {
+    background    : #003333;
+    border        : none;
+}
+
+.pastebee .info label {
+    color         : white;
+}
+
+.pastebee .info input::placeholder {
+    color         : grey;
 }
 
 .font-mono {

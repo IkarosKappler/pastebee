@@ -26,14 +26,27 @@ body {
     padding-left : 12px;
 }
 
+.pastebee .info {
+    position     : absolute;
+    width        : 100%;
+    top          : 42px;
+    height       : 66px;
+    padding-left : 12px;
+}
+
+.pastebee .info input[name=title] {
+    width        : 550px;
+    max-width    : 100%;
+}
+
 .pastebee .linenos {
     position      : absolute;
     left          : 0px;
-    top           : 42px;
+    top           : 108px;
     display       : inline-block;
     width         : 32px;
-    height        : calc( 100% - 42px );
-    z-index       : -1000;
+    height        : calc( 100% - 112px );
+    z-index       : -100;
     text-align    : right;
     box-sizing    : border-box;
     padding-right : 12px;
@@ -43,11 +56,11 @@ body {
 .pastebee textarea {
     position     : absolute;
     left         : 32px;
-    top          : 42px;
+    top          : 108px;
     background   : transparent;
     display      : inline-block;
     width        : calc( 100% - 42px );
-    height       : calc( 100% - 42px );
+    height       : calc( 100% - 112px );
     resize       : none;
     box-sizing   : border-box;
 }

@@ -51,13 +51,16 @@ class RequestValidator {
                 try {
                     $sanitized[$name] = RequestValidator::validateRule( $name, $rule, array_key_exists($name,$request) ? $request[$name] : null );
                 } catch( Exception $e ) {
-		    if( !$this->errors[$name] )
-		    	$this->errors[$name] = [];
+                    if( !$this->errors[$name] )
+                        $this->errors[$name] = [];
                     $this->errors[$name][] = $e->getMessage();
                     $this->errorCount++;
                     continue;
                 }
             }
+            // Are there rules defined at all (if not: optional parameter)
+            if( count($ruleSet) == 0 )
+                $sanitized[$name] = array_key_exists($name,$request) ? $request[$name] : null;
         }
         if( $this->errorCount == 0 ) return $sanitized;
         else                         return false;
@@ -66,6 +69,7 @@ class RequestValidator {
 
     public static function validateRule( string $name, Array $rule, $value ) {
         // print_r( 'rule=' . $rule[0] . ', ruleV=' . $rule[1] . ', ' . $name .'='. $value );
+        $lower = strtolower($value);
         switch( $rule[0] ) {
         case 'required':
             if( $value == null ) throw new Exception("Argument '".$name."' is required.");
@@ -75,6 +79,14 @@ class RequestValidator {
             break;
         case 'max':
             if( strlen($value) > $rule[1] ) throw new Exception("Argument '".$name."' is too long (".strlen($value)." > ".$rule[1].")");
+            break;
+        case 'boolean':
+            if( $value == 1 || $lower == 'on' || $lower == 'true' || $lower == 'yes')
+                $value = true;
+            else if( $value == 0 || $lower == 'off' || $lower == 'false' || $lower == 'no' )
+                $value = false;                
+            else
+                throw new Exception("Argument '".$name."' is not a valid boolean (".strlen($value).")");
             break;
         }
         return $value;
