@@ -27,16 +27,16 @@ if( array_key_exists('hash',$_GET) && $_GET['hash'] ) {
     </header>
     <form id="pastebee-form">
        <div class="info">
-          <input type="text" name="title" placeholder="Title">
-          <input type="text" name="filename" placeholder="Filename">
-          <input type="checkbox" name="public"><label for="public">Public</label>
+          <input type="text" name="title" placeholder="Title" value="<?php echo $paste ? $paste['title'] : ''; ?>">
+          <input type="text" name="filename" placeholder="Filename" value="<?php echo $paste ? $paste['filename'] : ''; ?>">
+          <input type="checkbox" name="public" <?php echo $paste && $paste['public'] ? 'checked' : ''; ?>><label for="public">Public</label>
           <br>
           <select name="mime">
-             <option value="text/plain" selected>Text (text/plain)</option>
-             <option value="text/javascript">Javascript (text/javascript)</option>
-             <option value="application/json">JSON (application/json)</option>
+             <option value="text/plain" <?php echo $paste&&$paste['mime']=='text/plain'?'selected':''; ?>>Text (text/plain)</option>
+             <option value="text/javascript" <?php echo $paste&&$paste['mime']=='text/javascript'?'selected':''; ?>>Javascript (text/javascript)</option>
+             <option value="application/json" <?php echo $paste&&$paste['mime']=='application/json'?'selected':''; ?>>JSON (application/json)</option>
           </select>
-          <input type="text" name="username" placeholder="Username">
+          <input type="text" name="username" placeholder="Username" value="<?php echo $paste ? $paste['username'] : ''; ?>">
        </div>
        <div class="linenos font-mono"><?php
         if( $paste ) {
