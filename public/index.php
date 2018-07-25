@@ -45,15 +45,28 @@ if( array_key_exists('hash',$_GET) && $_GET['hash'] ) {
             for( $i = 0; $i <= count($lines); $i++ )
                 echo ($i+1) . "<br>";
         } else {
-            echo "&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;";
+            echo "&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;<br>&gt;";
         }
        ?></div>
    
-       <textarea name="content" id="content" class="font-mono" placeholder="Your code here."><?php
+       <textarea name="content" id="content" class="font-mono" placeholder="This is a pastebin implementation
+=================================
+
+If you want to fork this go to https://github.com/IkarosKappler/pastebee
+
+Type any code you want here and share it with your collegues, friends, and/or family.
+
+Once you hit the 'save' button in the menu bar you can just share the generated link to show your work to others.
+
+No file transfer required.
+
+Have fun and do good
+ (~￣▽￣)~
+"><?php
         if( $paste )
             echo htmlentities($paste['content']);
         else 
-            // include 'demo-conent.js';
+            ; // include 'demo-conent.js';
         
        ?></textarea>
     </form>
