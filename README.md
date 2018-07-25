@@ -2,6 +2,8 @@
 
 A PHP pastebin implementation using the illuminate/eloquent library.
 
+See a demo here https://pastebee.func.name/
+
 ![Screenshot of the pastebee protoype](resources/Screenshot-pastebee-20180723_0.png)
 
 
