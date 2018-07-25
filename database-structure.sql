@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 23, 2018 at 10:35 PM
+-- Generation Time: Jul 25, 2018 at 11:54 PM
 -- Server version: 5.7.22
 -- PHP Version: 7.2.7-1+0~20180622080852.23+jessie~1.gbpfd8e2e
 
@@ -34,11 +34,12 @@ CREATE TABLE IF NOT EXISTS `pastes` (
   `hash` varchar(256) DEFAULT NULL,
   `mime` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'A mime type. Used for downloads and syntax highlighting.',
   `content` text,
+  `public` int(11) NOT NULL DEFAULT '0' COMMENT 'Indicates if this record shoule be listed in the public listing.',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `hashed_ip` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'The hashed sender IP to avoid spamming.'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -48,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `pastes` (
 -- Indexes for table `pastes`
 --
 ALTER TABLE `pastes`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `hash` (`hash`), ADD KEY `hashed_ip` (`hashed_ip`), ADD KEY `created_at` (`created_at`);
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `hash` (`hash`), ADD KEY `hashed_ip` (`hashed_ip`), ADD KEY `created_at` (`created_at`), ADD KEY `public` (`public`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -58,7 +59,7 @@ ALTER TABLE `pastes`
 -- AUTO_INCREMENT for table `pastes`
 --
 ALTER TABLE `pastes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
