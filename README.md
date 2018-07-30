@@ -4,7 +4,7 @@ A PHP pastebin implementation using the illuminate/eloquent library.
 
 See a demo here https://pastebee.func.name/
 
-![Screenshot of the pastebee protoype](resources/Screenshot-pastebee-20180723_0.png)
+![Screenshot of the pastebee protoype](resources/Screenshot-pastebee_20180726_0.png)
 
 
 ## Installation
@@ -23,21 +23,47 @@ Then go to the installation destination directory and clone the repository
 
 The main index file is now already in public/index.php.
 
+
 ### Run the installer
-You need to have composer installed.
+You need to have composer installed for this.
 ```bash
  $ composer install
 ```
 
 
+### Create the database (MariaDB or MySQL in this case)
+Go to your server terminal.
+```bash
+ # First create the database and grant privileges
+ $ mysql -u root -p
+   > CREATE DATABASE pastebee;
+   > CREATE USER 'pastebee'@'localhost' IDENTIFIED BY 'yourdbpass';
+   > INSERT INTO mysql.db (Host,Db,User,Select_priv,Insert_priv,Update_priv,Delete_priv) VALUES('localhost','pastebee','pastebee','Y','Y','Y','Y');
+   > FLUSH PRIVILEGES;
+   > quit
+   
+ # Now create the database structure from the supplied sql file
+ $ mysql -u root -p pastebee < database-structure.sql
+```
+
+
 ## Webserver configuration
-Setup your web server (apache, nginx, ...) to point your root directory
+Setup your web server (apache, nginx, ...) to point your public root directory and reload/restart it.
 ```
  DocumentRoot /var/www/pastebee/public
 ```
 
 
+### Requirements
+* A web server (Apache, nginx, ...)
+* php7
+* SQL database (MariaDB, MySQL, ...)
+* composer (for installation of illuminate/eloquent)
 
 
-### I used this tutorial for the Eloquent standalone howto
-https://code.tutsplus.com/tutorials/using-illuminate-database-with-eloquent-in-your-php-app-without-laravel--cms-27247
+
+### References
+* I used this tutorial for the Eloquent standalone howto
+  ** https://code.tutsplus.com/tutorials/using-illuminate-database-with-eloquent-in-your-php-app-without-laravel--cms-27247
+* This app uses FontAwesome for toggle icons
+  ** https://fontawesome.com/

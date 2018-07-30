@@ -48,39 +48,34 @@
 	}
     }
 
-    /*
-    function sendGETRequest( url, data, options )
+    /**
+     * Get the URI GET params as an assoc.
+     *
+     * A nicer version with regex
+     * Found at
+     *    https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+     **/
+    function gup()
     {
-	var request = new XMLHttpRequest();
-	request.open('GET', url, true);
-	
-	request.onload = function() {
-	    if (this.status >= 200 && this.status < 400) {
-		// Success!
-		var data = JSON.parse(this.response);
-	    } else {
-		// We reached our target server, but it returned an error
-		
-	    }
-	};
-	request.onerror = function() {
-	    // There was a connection error of some sort
-	};	
-	request.send();
+	var vars = {};
+	var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+						 function(m,key,value) {
+						     vars[key] = value;
+						 });
+	return vars;
     }
-    */
 
+    var _GET      = gup();
+    var _editmode = _GET.mode=='edit'; 
+    
     
     function sendPOSTRequest( url, data, options )
     {
 	var request = new XMLHttpRequest();
 	request.open('POST', url, true);
-	//request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-	//request.setRequestHeader('Content-Type', 'multipart/form-data; charset=UTF-8');
 	request.onload = function() {
-	    if (this.status == 200 ) { //  >= 200 && this.status < 400) {
+	    if (this.status == 200 ) {
 		// Success!
-		// var resp = this.response;
 		if( options.onComplete )
 		    options.onComplete( this );
 	    } else {
@@ -95,7 +90,6 @@
 	    console.error( "Error." );
 	};
 	request.send(data);
-	//request.send(urlEncodedData);
     }
 
     
@@ -117,6 +111,17 @@
 
 	    addClass( header, 'mtop-transition-36px' );
 	}
+
+	document.getElementById('btn-edit').addEventListener('click', function(e) {
+	    e.preventDefault();
+	    if( this.getAttribute('data-action') == 'edit' ) {
+		console.log( 'edit ...' );
+		window.location.href = '/?mode=edit&hash=' + _GET['hash'];
+	    } else {
+		console.log( 'close ...' );
+		window.location.href = '/?hash=' + _GET['hash'];
+	    }
+	} );
 
 	document.getElementById('btn-save').addEventListener('click', function(e) {
 	    e.preventDefault();
@@ -145,6 +150,16 @@
 	    console.log( 'new ...' );
 	    window.location.href = "/";
 	} );
+
+	if( !_editmode ) {
+	    // Initialize hightlightjs
+	    hljs.initHighlightingOnLoad();
+	    // Initialize line numbers for highligthtjs
+	    hljs.initLineNumbersOnLoad();
+
+	    hljs.highlightBlock( document.getElementById('content') );
+	    hljs.lineNumbersBlock( document.getElementById('content') );
+	}
 	
     }
 
