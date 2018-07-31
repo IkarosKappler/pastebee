@@ -1,9 +1,12 @@
 <?php
 
+$_hash = null;
 if( array_key_exists('hash',$_GET) && $_GET['hash'] ) {
     $paste = (include 'retrieve.php');
 }
 
+if( array_key_exists('hash',$_GET) && !$_GET['hash'] )
+    $_hash = $_GET['hash'];
 $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_exists('mode',$_GET) && $_GET['mode']=='edit')); 
 
 ?><!DOCTYPE html>
@@ -30,7 +33,12 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
   <body class="pastebee">
     <header>
       <div class="center-v">
-         pastebee | <button type="button" id="btn-new">New</button> | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'Close':'Edit'; ?></button> | <button type="button" id="btn-save">Save</button>
+         pastebee
+	 | <button type="button" id="btn-new">New</button>
+	 <?php if( $paste ) { ?>
+	 | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'Close':'Edit'; ?></button>
+	 <?php } ?>
+	 | <button type="button" id="btn-save">Save</button>
       </div>
     </header>
     <form id="pastebee-form">
@@ -50,7 +58,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 	     <option value="text/x-c" <?php echo $paste&&$paste['mime']=='text/x-c'?'selected':''; ?>>C/C++ (text/x-c)</option>
 	     <option value="text/x-script.sh" <?php echo $paste&&$paste['mime']=='text/x-script.sh'?'selected':''; ?>>Shell/Bash (text/x-script.sh)</option>
           </select>
-          <input type="checkbox" name="public" id="public" class="d-hidden fancy-fa-togglebutton" <?php echo $paste && $paste['public'] ? 'checked' : ''; ?>><label for="public">Public</label>
+          <input type="checkbox" name="public" id="public" class="d-hidden fancy-fa-togglebutton" <?php echo !$paste||$paste['public'] ? 'checked' : ''; ?>><label for="public">Public</label>
        </div>
        <?php if( $_editmode ) { ?>
        <div class="linenos font-mono"><?php
@@ -88,7 +96,6 @@ Have fun and do good
             echo htmlentities($paste['content']);
         else 
             ; // include 'demo-conent.js';
-        
        ?></textarea>
        <?php } ?>
     </form>

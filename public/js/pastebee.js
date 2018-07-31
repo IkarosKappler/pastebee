@@ -66,7 +66,7 @@
     }
 
     var _GET      = gup();
-    var _editmode = _GET.mode=='edit'; 
+    var _editmode = _GET['mode']=='edit';
     
     
     function sendPOSTRequest( url, data, options )
@@ -112,16 +112,19 @@
 	    addClass( header, 'mtop-transition-36px' );
 	}
 
-	document.getElementById('btn-edit').addEventListener('click', function(e) {
-	    e.preventDefault();
-	    if( this.getAttribute('data-action') == 'edit' ) {
-		console.log( 'edit ...' );
-		window.location.href = '/?mode=edit&hash=' + _GET['hash'];
-	    } else {
-		console.log( 'close ...' );
-		window.location.href = '/?hash=' + _GET['hash'];
-	    }
-	} );
+	var btn_edit = document.getElementById('btn-edit');
+	if( btn_edit ) {
+	    btn_edit.addEventListener('click', function(e) {
+		e.preventDefault();
+		if( this.getAttribute('data-action') == 'edit' ) {
+		    console.log( 'edit ...' );
+		    window.location.href = '/?mode=edit&hash=' + _GET['hash'];
+		} else {
+		    console.log( 'close ...' );
+		    window.location.href = '/?hash=' + _GET['hash'];
+		}
+	    } );
+	}
 
 	document.getElementById('btn-save').addEventListener('click', function(e) {
 	    e.preventDefault();
@@ -151,7 +154,7 @@
 	    window.location.href = "/";
 	} );
 
-	if( !_editmode ) {
+	if( !_editmode && _GET['hash']!=null ) {
 	    // Initialize hightlightjs
 	    hljs.initHighlightingOnLoad();
 	    // Initialize line numbers for highligthtjs

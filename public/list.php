@@ -38,8 +38,8 @@ if( !$sanitized ) {
 
 
 // --------- Retrieve record by hash ---------------------------
-$pastes = Paste::where('title','LIKE','%'.$sanitized['search'].'%')->limit(100)->lists('hash','title');
+$pastes = Paste::select('hash','title')->where('title','LIKE','%'.$sanitized['search'].'%')->where('deleted_at',null)->orderBy('id','DESC')->limit(100)->get();
 
 
-header( 'Content-Type: application/json; charset=utf-8' );
-echo json_encode( $pastes );
+
+return $pastes;

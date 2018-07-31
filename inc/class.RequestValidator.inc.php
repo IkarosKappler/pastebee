@@ -55,7 +55,7 @@ class RequestValidator {
                         $this->errors[$name] = [];
                     $this->errors[$name][] = $e->getMessage();
                     $this->errorCount++;
-                    continue;
+                    continue; 
                 }
             }
             // Are there rules defined at all (if not: optional parameter)
@@ -75,10 +75,10 @@ class RequestValidator {
             if( $value == null ) throw new Exception("Argument '".$name."' is required.");
             break;
         case 'min':
-            if( strlen($value) < $rule[1] ) throw new Exception("Argument '".$name."' is too short (".strlen($value)." < ".$rule[1].")");
+            if( $value != null && strlen($value) < $rule[1] ) throw new Exception("Argument '".$name."' is too short (".strlen($value)." < ".$rule[1].")");
             break;
         case 'max':
-            if( strlen($value) > $rule[1] ) throw new Exception("Argument '".$name."' is too long (".strlen($value)." > ".$rule[1].")");
+            if( $value != null && strlen($value) > $rule[1] ) throw new Exception("Argument '".$name."' is too long (".strlen($value)." > ".$rule[1].")");
             break;
         case 'boolean':
             if( $value == 1 || $lower == 'on' || $lower == 'true' || $lower == 'yes')

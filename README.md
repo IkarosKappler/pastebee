@@ -32,17 +32,17 @@ You need to have composer installed for this.
 
 
 ### Create the database (MariaDB or MySQL in this case)
-Go to your server terminal.
+Go to your server terminal, create a new database, user and set CRUD privilegues:
 ```bash
  # First create the database and grant privileges
  $ mysql -u root -p
    > CREATE DATABASE pastebee;
    > CREATE USER 'pastebee'@'localhost' IDENTIFIED BY 'yourdbpass';
-   > INSERT INTO mysql.db (Host,Db,User,Select_priv,Insert_priv,Update_priv,Delete_priv) VALUES('localhost','pastebee','pastebee','Y','Y','Y','Y');
+   > INSERT INTO mysql.db (Host,Db,User,Insert_priv,Select_priv,Update_priv,Delete_priv) VALUES('localhost','pastebee','pastebee','Y','Y','Y','Y');
    > FLUSH PRIVILEGES;
    > quit
    
- # Now create the database structure from the supplied sql file
+ # Now create the database structure from the supplied SQL file
  $ mysql -u root -p pastebee < database-structure.sql
 ```
 
@@ -62,8 +62,19 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 
+### Changelog
+* 2018-07-31
+  * Changed database text columns from utf8_ci to utf8mb4_ci (can store encoded string values now).
+  * Modified the list script: returns a JSON array now (was object before).
+  * Extended the request validation; checking for not-null before string length now.
+  * Added a search script.
+* 2018-07-19
+  * Added syntax highlighting (hightlightjs).
+  
+
+
 ### References
 * I used this tutorial for the Eloquent standalone howto
-  ** https://code.tutsplus.com/tutorials/using-illuminate-database-with-eloquent-in-your-php-app-without-laravel--cms-27247
+  * https://code.tutsplus.com/tutorials/using-illuminate-database-with-eloquent-in-your-php-app-without-laravel--cms-27247
 * This app uses FontAwesome for toggle icons
-  ** https://fontawesome.com/
+  * https://fontawesome.com/
