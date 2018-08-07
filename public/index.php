@@ -2,7 +2,9 @@
 
 $_hash = null;
 if( array_key_exists('hash',$_GET) && $_GET['hash'] ) {
-    $paste = (include 'retrieve.php');
+    $paste = (include '../inc/retrieve.inc.php');
+} else { // Load the env
+  require '../config.php';
 }
 
 if( array_key_exists('hash',$_GET) && !$_GET['hash'] )
@@ -24,7 +26,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
     <link rel="stylesheet" href="css/fontawesome-3.2.1/css/font-awesome.css">
     <link rel="stylesheet" href="css/highlightjs-default.min.css">
     <Link rel="stylesheet" href="css/pastebee.css">
-    <link rel="stylesheet" href="css/theme.default.css">
+    <link rel="stylesheet" href="css/theme.<?php echo THEME; ?>.css">
     <script src="js/pastebee.js"></script>
     <script src="js/highlight.min.js"></script>
     <script src="js/highlightjs-line-numbers.min.js"></script>
@@ -37,8 +39,13 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 	 | <button type="button" id="btn-new">New</button>
 	 <?php if( $paste ) { ?>
 	 | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'Close':'Edit'; ?></button>
-	 <?php } ?>
+	 | <form action="raw.php" method="get" target="_blank" style="display: inline-block">
+	      <input type="hidden" name="hash" value="<?php echo $paste['hash']; ?>">
+	      <button type="submit">Download</button>
+	   </form>
+	 <?php } else { ?>
 	 | <button type="button" id="btn-save">Save</button>
+	 <?php } ?>
       </div>
     </header>
     <form id="pastebee-form">

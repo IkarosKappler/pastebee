@@ -5,7 +5,7 @@
  * @version 1.0.0
  **/
 
-$paste = (include 'retrieve.php');
+$paste = (include '../inc/retrieve.inc.php');
 
 header( 'Content-Type: application/json; charset=utf-8' );
 echo json_encode( $paste );

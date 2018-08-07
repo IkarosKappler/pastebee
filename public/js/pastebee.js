@@ -7,8 +7,10 @@
 (function() {
     'use strict';
 
-    // Mobile and tablet list from
-    //    http://detectmobilebrowsers.com/
+    // +---------------------------------------------------------------
+    // | Mobile and tablet list from
+    // |   http://detectmobilebrowsers.com/
+    // +-----------------------------------------------------
     window.mobileAndTabletcheck = function()
     {
 	var check = false;
@@ -16,12 +18,12 @@
 	return check;
     };
     
-    /**
-     * Add a class to the given element.
-     *
-     * @param HTMLElement The DOM element to add the class to.
-     * @param string      The class's name.
-     **/
+    // +---------------------------------------------------------------
+    // | Add a class to the given element.
+    // |
+    // | @param HTMLElement The DOM element to add the class to.
+    // | @param string      The class's name.
+    // +-----------------------------------------------------
     function addClass(element,name)
     {
 	var arr;
@@ -31,12 +33,12 @@
 	}
     }
 
-    /**
-     * Remove a class from the given element.
-     *
-     * @param HTMLElement The DOM element to remove the class from.
-     * @param string      The class's name.
-     **/
+    // +---------------------------------------------------------------
+    // | Remove a class from the given element.
+    // |
+    // | @param HTMLElement The DOM element to remove the class from.
+    // | @param string      The class's name.
+    // +-----------------------------------------------------
     function removeClass(element,name)
     {
 	var arr;
@@ -48,13 +50,13 @@
 	}
     }
 
-    /**
-     * Get the URI GET params as an assoc.
-     *
-     * A nicer version with regex
-     * Found at
-     *    https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-     **/
+    // +---------------------------------------------------------------
+    // | Get the URI GET params as an assoc.
+    // |
+    // | A nicer version with regex
+    // | Found at
+    // |   https://stackoverflow.com/questions/979975/how-to-get-the-value-from-the-get-parameters?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    // +-----------------------------------------------------
     function gup()
     {
 	var vars = {};
@@ -65,10 +67,24 @@
 	return vars;
     }
 
+
+    // +---------------------------------------------------------------
+    // | Fetch the GET params in an assoc.
+    // +-----------------------------------------------------
     var _GET      = gup();
     var _editmode = _GET['mode']=='edit';
+
+
     
     
+    // +---------------------------------------------------------------
+    // | Send an asynchronous HTTP POST request.
+    // |
+    // | @param url      The fully qualified URL to call.
+    // | @param data     The data/form-data to send (object or FormData instance).
+    // | @param options.onComplete An optional callback to call when the request succeeded.
+    // | @param options.onError    An optional callback to call when the request failed.
+    // +-----------------------------------------------------
     function sendPOSTRequest( url, data, options )
     {
 	var request = new XMLHttpRequest();
@@ -92,10 +108,11 @@
 	request.send(data);
     }
 
+
     
-    /**
-     * Initialize the pastebee app.
-     **/
+    // +---------------------------------------------------------------
+    // | Initialize the pastebee app.
+    // +-----------------------------------------------------
     function init()
     {
 	if( !mobileAndTabletcheck() ) {
@@ -126,28 +143,29 @@
 	    } );
 	}
 
-	document.getElementById('btn-save').addEventListener('click', function(e) {
-	    e.preventDefault();
-	    console.log( 'save ...' );
-	    var content = document.getElementById('content').value;
-	    //var data = new FormData();
-	    //data.append('content',content);
-	    var data = new FormData( document.getElementById('pastebee-form') );
-	    sendPOSTRequest( '/create.php',
-			     data,
-			     { onComplete : function( request ) {
-				 console.log( request );
-				 var response = JSON.parse( request.response );
-				 console.log( response );
-				 console.log( "/?hash=" + response.hash );
-				 window.location.href = "/?hash=" + response.hash;
-			     },
-			       onError : function( request ) {
-				   console.error( request );
-			       }
-			     }
-			   );
-	} );
+	var btn_save = document.getElementById('btn-save');
+	if( btn_save ) {
+	    btn_save.addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log( 'save ...' );
+		var content = document.getElementById('content').value;
+		var data = new FormData( document.getElementById('pastebee-form') );
+		sendPOSTRequest( '/create.php',
+				 data,
+				 { onComplete : function( request ) {
+				     console.log( request );
+				     var response = JSON.parse( request.response );
+				     console.log( response );
+				     console.log( "/?hash=" + response.hash );
+				     window.location.href = "/?hash=" + response.hash;
+				 },
+				   onError : function( request ) {
+				       console.error( request );
+				   }
+				 }
+			       );
+	    } );
+	}
 
 	document.getElementById('btn-new').addEventListener('click', function(e) {
 	    console.log( 'new ...' );
@@ -155,11 +173,8 @@
 	} );
 
 	if( !_editmode && _GET['hash']!=null ) {
-	    // Initialize hightlightjs
 	    hljs.initHighlightingOnLoad();
-	    // Initialize line numbers for highligthtjs
 	    hljs.initLineNumbersOnLoad();
-
 	    hljs.highlightBlock( document.getElementById('content') );
 	    hljs.lineNumbersBlock( document.getElementById('content') );
 	}

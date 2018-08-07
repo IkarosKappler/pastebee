@@ -5,7 +5,7 @@
  * @version 1.0.0
  **/
 
-$pastes = (include 'list.php');
+$pastes = (include '../inc/list.inc.php');
 
 header( 'Content-Type: application/json; charset=utf-8' );
 echo json_encode( $pastes );

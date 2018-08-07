@@ -38,7 +38,7 @@ if( !$sanitized ) {
 
 
 // --------- Retrieve record by hash ---------------------------
-$pastes = Paste::select('hash','title')->where('title','LIKE','%'.$sanitized['search'].'%')->where('deleted_at',null)->orderBy('id','DESC')->limit(100)->get();
+$pastes = Paste::select('hash','title')->where('title','LIKE','%'.$sanitized['search'].'%')->where('public',1)->where('deleted_at',null)->orderBy('id','DESC')->limit(100)->get();
 
 
 
