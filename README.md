@@ -63,6 +63,9 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 ### Changelog
+* 2018-08-30
+  * Added 'NOTIFICATION_EMAIL' to the .env file (see .env.example).
+  * Added email notification to the create script.
 * 2018-08-07
   * Added theming and a second theme (light). See the THEME setting in the example .env file.
 * 2018-08-01

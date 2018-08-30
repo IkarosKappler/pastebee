@@ -49,6 +49,13 @@ try {
 
     // --------- Send response ---------------------------
     echo json_encode( array('message'=>'OK', 'hash'=>$paste->hash ) );
+
+    // Send notification email
+    mail( 'info@int2byte.de',
+          'Paste stored (id='.$paste->id.').',
+          'Paste was stored (remote_address=' . $noteObject->hashed_ip . ")\n".
+          'content: ' . $paste->content
+    );
 } catch( Exception $e ) {
     header('HTTP/1.1 503 Service Unavailable');
     die( json_encode(['message'=>$e->getMessage()]) );
