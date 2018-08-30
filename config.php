@@ -11,3 +11,5 @@ defined("DBNAME")or define('DBNAME',_env('DBNAME','pastebee'));
 defined("DBUSER")or define('DBUSER',_env('DBUSER','pastebee'));
 defined("DBPASS")or define('DBPASS',_env('DBPASS','yourpass'));
 
+
+defined("THEME")or define('THEME',_env('THEME','default'));

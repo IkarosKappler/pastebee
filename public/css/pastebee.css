@@ -26,28 +26,41 @@ body {
     padding-left : 12px;
 }
 
+.pastebee .info {
+    position     : absolute;
+    width        : 100%;
+    top          : 42px;
+    height       : 66px;
+    padding-left : 12px;
+}
+
+.pastebee .info input[name=title] {
+    width        : 550px;
+    max-width    : 100%;
+}
+
 .pastebee .linenos {
     position      : absolute;
     left          : 0px;
-    top           : 42px;
+    top           : 108px;
     display       : inline-block;
     width         : 32px;
-    height        : calc( 100% - 42px );
-    z-index       : -1000;
+    height        : calc( 100% - 112px );
+    z-index       : -100;
     text-align    : right;
     box-sizing    : border-box;
     padding-right : 12px;
     padding-top   : 2px;
 }
 
-.pastebee textarea {
+.pastebee textarea, .pastebee pre {
     position     : absolute;
     left         : 32px;
-    top          : 42px;
+    top          : 108px;
     background   : transparent;
     display      : inline-block;
     width        : calc( 100% - 42px );
-    height       : calc( 100% - 42px );
+    height       : calc( 100% - 112px );
     resize       : none;
     box-sizing   : border-box;
 }
@@ -75,4 +88,52 @@ body {
         ms-transition  : margin-top .5s;
          o-transition  : margin-top .5s;
            transition  : margin-top .5s;
+}
+
+
+
+
+
+/*** custom checkbox ***/
+input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+input[type=checkbox] + label:before {
+  font-family: FontAwesome;
+  display: inline-block;
+}
+
+input[type=checkbox] + label:before { content: "\f096"; } /* unchecked icon */
+input[type=checkbox] + label:before { letter-spacing: 10px; } /* space between checkbox and label */
+
+input[type=checkbox]:checked + label:before { content: "\f046"; } /* checked icon */
+input[type=checkbox]:checked + label:before { letter-spacing: 8px; } /* allow space for check mark */
+
+
+
+/* Line numbers from highlightjs-line-numbers.js */
+/* for block of numbers */
+td.hljs-ln-numbers {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    text-align: right;
+    color: #ccc;
+    border-right: 1px solid #CCC;
+    vertical-align: top;
+    padding-right: 15px;
+
+    /* your custom style here */
+}
+
+/* for block of code */
+td.hljs-ln-code {
+    padding-left: 10px;
+}
+
+td.hljs-ln-code div.hljs-ln-line:before {
+    display : inline-block;
+    content : " ";
 }

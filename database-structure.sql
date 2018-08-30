@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 25, 2018 at 11:54 PM
--- Server version: 5.7.22
--- PHP Version: 7.2.7-1+0~20180622080852.23+jessie~1.gbpfd8e2e
+-- Erstellungszeit: 31. Jul 2018 um 14:59
+-- Server Version: 5.7.22
+-- PHP-Version: 7.2.7-1+0~20180622080852.23+jessie~1.gbpfd8e2e
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,49 +17,49 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `pastebee`
+-- Datenbank: `pastebee`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pastes`
+-- Tabellenstruktur für Tabelle `pastes`
 --
 
 CREATE TABLE IF NOT EXISTS `pastes` (
 `id` int(11) NOT NULL,
-  `username` varchar(64) DEFAULT NULL,
-  `title` varchar(128) DEFAULT NULL,
-  `filename` varchar(256) DEFAULT NULL COMMENT 'A potential file name for downloading.',
-  `hash` varchar(256) DEFAULT NULL,
+  `username` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `filename` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'A potential file name for downloading.',
+  `hash` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `mime` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'A mime type. Used for downloads and syntax highlighting.',
-  `content` text,
-  `public` int(11) NOT NULL DEFAULT '0' COMMENT 'Indicates if this record shoule be listed in the public listing.',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `public` int(11) DEFAULT '0' COMMENT 'Indicates if this record shoule be listed in the public listing.',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `hashed_ip` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'The hashed sender IP to avoid spamming.'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Indizes der exportierten Tabellen
 --
 
 --
--- Indexes for table `pastes`
+-- Indizes für die Tabelle `pastes`
 --
 ALTER TABLE `pastes`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `hash` (`hash`), ADD KEY `hashed_ip` (`hashed_ip`), ADD KEY `created_at` (`created_at`), ADD KEY `public` (`public`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
 --
--- AUTO_INCREMENT for table `pastes`
+-- AUTO_INCREMENT für Tabelle `pastes`
 --
 ALTER TABLE `pastes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

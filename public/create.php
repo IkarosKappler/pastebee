@@ -26,9 +26,12 @@ if( $_SERVER['REQUEST_METHOD'] != 'POST' ) {
 
 // --------- Validate input ---------------------------
 $validator = new RequestValidator( [
-    'user' => '',
+    'username' => '',
     'title' => '',
     'description' => '',
+    'mime' => '',
+    'public' => 'boolean',
+    'filename' => '',
     'content' => 'required|min:1|max:2048'
 ] );
 $sanitized = $validator->validate( $_POST );

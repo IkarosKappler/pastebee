@@ -1,11 +1,11 @@
 <?php
 /**
  * @author  Ikaros Kappler
- * @date    2018-07-12
+ * @date    2018-07-31
  * @version 1.0.0
  **/
 
-$paste = (include '../inc/retrieve.inc.php');
+$pastes = (include '../inc/list.inc.php');
 
 header( 'Content-Type: application/json; charset=utf-8' );
-echo json_encode( $paste );
+echo json_encode( $pastes );
