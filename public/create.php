@@ -51,9 +51,9 @@ try {
     echo json_encode( array('message'=>'OK', 'hash'=>$paste->hash ) );
 
     // Send notification email
-    mail( 'info@int2byte.de',
+    mail( NOTIFICATION_EMAIL,
           'Paste stored (id='.$paste->id.').',
-          'Paste was stored (remote_address=' . $noteObject->hashed_ip . ")\n".
+          'Paste was stored (remote_address=' . $paste->hashed_ip . ")\n".
           'content: ' . $paste->content
     );
 } catch( Exception $e ) {
