@@ -32,7 +32,8 @@ $validator = new RequestValidator( [
     'mime' => '',
     'public' => 'boolean',
     'filename' => '',
-    'content' => 'required|min:1|max:2048'
+    'content' => 'required|min:1|max:2048',
+    'parent_hash' => ''
 ] );
 $sanitized = $validator->validate( $_POST );
 if( !$sanitized ) {

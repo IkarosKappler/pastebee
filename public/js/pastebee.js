@@ -51,6 +51,30 @@
     }
 
     // +---------------------------------------------------------------
+    // | Get the current paste's hash (from the document metadata).
+    // | 
+    // | If currently no paste is loaded the function returns null.
+    // |
+    // | @return string (The hash of the current paste).
+    // +-----------------------------------------------------
+    function getPasteHash() {
+	var meta = document.querySelector("meta[name='paste:hash']");
+	return meta ? meta.getAttribute("content") : null;
+    };
+
+    // +---------------------------------------------------------------
+    // | Get the current paste's hash (from the document metadata).
+    // | 
+    // | If currently no paste is loaded the function returns null.
+    // |
+    // | @return string (The hash of the current paste).
+    // +-----------------------------------------------------
+    function getParentHash() {
+	var meta = document.querySelector("meta[name='paste:parent_hash']");
+	return meta ? meta.getAttribute("content") : null;
+    };
+
+    // +---------------------------------------------------------------
     // | Get the URI GET params as an assoc.
     // |
     // | A nicer version with regex
@@ -147,9 +171,10 @@
 	if( btn_save ) {
 	    btn_save.addEventListener('click', function(e) {
 		e.preventDefault();
-		console.log( 'save ...' );
+		// console.log( 'save ...' );
 		var content = document.getElementById('content').value;
 		var data = new FormData( document.getElementById('pastebee-form') );
+		data.append( 'parent_hash', getPasteHash() );
 		sendPOSTRequest( '/create.php',
 				 data,
 				 { onComplete : function( request ) {
@@ -172,13 +197,30 @@
 	    window.location.href = "/";
 	} );
 
+
+	var btn_loadParent = document.getElementById('btn-loadParent');
+	if( btn_loadParent ) {
+	    btn_loadParent.addEventListener('click', function(e) {
+		e.preventDefault();
+		var parentHash = getParentHash();
+		if( parentHash ) {
+		    console.log( 'load parent ...' );
+		    window.location.href = '/?mode=edit&hash=' + parentHash;
+		} else {
+		    console.warn( 'Cannot load parent: no parent hash specified.' );
+		}
+	    } );
+	}
+	
+
 	if( !_editmode && _GET['hash']!=null ) {
 	    hljs.initHighlightingOnLoad();
 	    hljs.initLineNumbersOnLoad();
 	    hljs.highlightBlock( document.getElementById('content') );
 	    hljs.lineNumbersBlock( document.getElementById('content') );
 	}
-	
+
+	console.log( getPasteHash() );
     }
 
     window.addEventListener('load',init);

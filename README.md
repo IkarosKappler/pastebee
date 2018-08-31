@@ -63,6 +63,8 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 ### Changelog
+* 2018-08-31
+  * Added the 'parent_hash' column to the database, model, controller, DOM and main script.
 * 2018-08-30
   * Added 'NOTIFICATION_EMAIL' to the .env file (see .env.example).
   * Added email notification to the create script.

@@ -23,6 +23,12 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
     <meta name="author" content="Ikaros Kappler">
     <meta name="date" content="2018-07-06">
 
+<?php if( $paste ) { ?>
+    <meta name="paste:hash" content="<?php echo $paste->hash; ?>">
+    <meta name="paste:parent_hash" content="<?php echo $paste->parent_hash; ?>">
+<?php } ?>
+
+
     <link rel="stylesheet" href="css/fontawesome-3.2.1/css/font-awesome.css">
     <link rel="stylesheet" href="css/highlightjs-default.min.css">
     <Link rel="stylesheet" href="css/pastebee.css">
@@ -44,9 +50,9 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 	      <button type="submit">Download</button>
 	   </form>                    
 	 <?php } ?>
-                          <?php if( $paste || $_editmode ) { ?>
-                                                             | <button type="button" id="btn-save">Save</button> 
-                          <?php } ?>
+         <?php if( $_editmode ) { ?>
+         | <button type="button" id="btn-save">Save</button> 
+         <?php } ?>
       </div>
     </header>
     <form id="pastebee-form">
@@ -54,7 +60,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
           <input type="text" name="username" placeholder="Username" value="<?php echo $paste ? $paste['username'] : ''; ?>"<?php if( !$_editmode ) echo ' disabled'?>>
           <input type="text" name="title" placeholder="Title" value="<?php echo $paste ? $paste['title'] : ''; ?>"<?php if( !$_editmode ) echo ' disabled'?>>
 	  <br>
-                                                             <input type="text" name="filename" placeholder="Filename" value="<?php echo $paste ? $paste['filename'] : ''; ?>"<?php if( !$_editmode ) echo ' disabled'?>>
+          <input type="text" name="filename" placeholder="Filename" value="<?php echo $paste ? $paste['filename'] : ''; ?>"<?php if( !$_editmode ) echo ' disabled'?>>
           <select name="mime"<?php if( !$_editmode ) echo ' disabled'?>>
              <option value="text/plain" <?php echo $paste&&$paste['mime']=='text/plain'?'selected':''; ?>>Text (text/plain)</option>
 	     <option value="text/markdown" <?php echo $paste&&$paste['mime']=='text/markdown'?'selected':''; ?>>Markdown (text/markdown)</option>
@@ -67,6 +73,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 	     <option value="text/x-script.sh" <?php echo $paste&&$paste['mime']=='text/x-script.sh'?'selected':''; ?>>Shell/Bash (text/x-script.sh)</option>
           </select>
           <input type="checkbox" name="public" id="public" class="d-hidden fancy-fa-togglebutton" <?php echo !$paste||$paste['public'] ? 'checked' : ''; ?><?php if( !$_editmode ) echo ' disabled'?>><label for="public">Public</label>
+	  &nbsp; | &nbsp; <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash ) echo ' disabled' ?>>Go to previous version of thie paste</button> 
        </div>
        <?php if( $_editmode ) { ?>
        <div class="linenos font-mono"><?php
