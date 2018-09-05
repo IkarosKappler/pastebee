@@ -205,7 +205,7 @@
 		var parentHash = getParentHash();
 		if( parentHash ) {
 		    console.log( 'load parent ...' );
-		    window.location.href = '/?mode=edit&hash=' + parentHash;
+		    window.location.href = '/?hash=' + parentHash;
 		} else {
 		    console.warn( 'Cannot load parent: no parent hash specified.' );
 		}

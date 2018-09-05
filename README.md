@@ -63,6 +63,10 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 ### Changelog
+* 2018-09-05
+  * Bugfix: removed editmode from link to parent paste.
+  * Changed button text if no parent paste is available.
+  * Fixed some color fails in the 'light' theme.
 * 2018-08-31
   * Added the 'parent_hash' column to the database, model, controller, DOM and main script.
 * 2018-08-30
