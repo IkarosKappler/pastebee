@@ -100,7 +100,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 
 If you want to fork this go to https://github.com/IkarosKappler/pastebee
 
-Type any code you want here and share it with your collegues, friends, and/or family.
+Type any code you want here and share it with your colleagues, friends, and/or family.
 
 Once you hit the 'save' button in the menu bar you can just share the generated link to show your work to others.
 
