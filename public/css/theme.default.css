@@ -22,6 +22,7 @@
 .pastebee .info {
     font-family  : sans-serif;
     background   : #004444;
+    color        : white;
 }
 
 .pastebee .info input, .pastebee .info select {

@@ -73,7 +73,8 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 	     <option value="text/x-script.sh" <?php echo $paste&&$paste['mime']=='text/x-script.sh'?'selected':''; ?>>Shell/Bash (text/x-script.sh)</option>
           </select>
           <input type="checkbox" name="public" id="public" class="d-hidden fancy-fa-togglebutton" <?php echo !$paste||$paste['public'] ? 'checked' : ''; ?><?php if( !$_editmode ) echo ' disabled'?>><label for="public">Public</label>
-	  &nbsp; | &nbsp; <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash ) echo ' disabled' ?>>Go to previous version of thie paste</button> 
+                                                                                                                      <?php if( $paste ) { ?>&nbsp; | &nbsp; <?php echo $paste->created_at; } ?>
+	  &nbsp; | &nbsp; <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash ) echo 'Go to previous version of thie paste'; else echo 'No predecessor available'; ?></button> 
        </div>
        <?php if( $_editmode ) { ?>
        <div class="linenos font-mono"><?php
