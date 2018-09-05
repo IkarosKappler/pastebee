@@ -123,7 +123,7 @@ td.hljs-ln-numbers {
     color: #ccc;
     border-right: 1px solid #CCC;
     vertical-align: top;
-    padding-right: 15px;
+    padding-right: 10px !important;
 
     /* your custom style here */
 }
