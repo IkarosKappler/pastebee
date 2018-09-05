@@ -21,9 +21,24 @@ body {
 }
 
 .pastebee header {
+    /* display      : flex;
+    align-items  : center; */
     width        : 100%;
     height       : 42px;
     padding-left : 12px;
+}
+
+.pastebee header div {
+    display      : inline-block;
+}
+
+.pastebee header #logo {
+    display           : inline-block;
+    height            : 32px;
+    width             : 32px;
+    background        : url('../img/logo-128x128-white.png');
+    background-repeat : none;
+    background-size   : contain;
 }
 
 .pastebee .info {

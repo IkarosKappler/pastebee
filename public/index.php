@@ -41,7 +41,8 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
   <body class="pastebee">
     <header>
       <div class="center-v">
-         pastebee
+         <div id="logo"></div>
+         <div id="appname">pastebee</div>
 	 | <button type="button" id="btn-new">New</button>
 	 <?php if( $paste ) { ?>
 	 | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'Close':'Edit'; ?></button>          
