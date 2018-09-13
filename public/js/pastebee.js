@@ -1,8 +1,10 @@
 /**
  * @author  Ikaros Kappler
  * @date    2018-07-06
- * @version 1.0.0
+ * @version 1.0.1
  **/
+
+window.PASTEBEE_VERSION = '1.0.1';
 
 (function() {
     'use strict';
@@ -186,6 +188,14 @@
 				 },
 				   onError : function( request ) {
 				       console.error( request );
+				       if( request.status == 403 ) {
+					   var responseData = JSON.parse( request.responseText );
+					   var msg = [ responseData.message ];
+					   for( var arg in responseData.errors )
+					       msg.push( arg + ': ' + responseData.errors[arg].join('. ') ) ;
+				       }
+				       window.alert( msg.join("\n") );
+				       // Show pretty error warning here?
 				   }
 				 }
 			       );

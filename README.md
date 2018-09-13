@@ -7,6 +7,10 @@ See a demo here https://pastebee.func.name/
 ![Screenshot of the pastebee protoype](resources/Screenshot-pastebee_20180905_0.png)
 
 
+### Current Version
+1.0.1 (built 2018-09-13)
+
+
 ## Installation
 
 Assume your pastebee installation directory is
@@ -62,7 +66,18 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 
+### Todos
+* Add a nice error dialog.
+
+
 ### Changelog
+* 2018-09-13
+  * Raised the max paste size from 2048 bytes to 10240 bytes (10 KB).
+  * Fixed a display issue with the download button.
+  * Added a very simple error handling (window.alert); a more beautiful error dialog will come soon.
+  * Fixed a bug in the MIME type selector (wrong typ displayed).
+* 2018-09-11
+  * Added basic CSS break points for small displays (menu was foo bar on phones).
 * 2018-09-05
   * Bugfix: removed editmode from link to parent paste.
   * Changed button text if no parent paste is available.

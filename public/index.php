@@ -40,13 +40,16 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 
   <body class="pastebee">
     <header>
-      <div class="center-v">
-         <div id="logo"></div>
-         <div id="appname">pastebee</div>
+      <div>
+         <a href="index.php">
+            <div id="logo"></div>
+            <div id="appname">pastebee</div>
+	    <sup id="version"><script>document.write(PASTEBEE_VERSION);</script></sup>
+	 </a>
 	 | <button type="button" id="btn-new">New</button>
 	 <?php if( $paste ) { ?>
 	 | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'Close':'Edit'; ?></button>          
-	 | <form action="raw.php" method="get" target="_blank" style="display: inline-block">
+	 | <form action="raw.php" method="get" target="_blank">
 	      <input type="hidden" name="hash" value="<?php echo $paste['hash']; ?>">
 	      <button type="submit">Download</button>
 	   </form>                    
@@ -54,6 +57,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
          <?php if( $_editmode ) { ?>
          | <button type="button" id="btn-save">Save</button> 
          <?php } ?>
+	 | <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash || $paste->parent_hash=='null' ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash && $paste->parent_hash!='null' ) echo 'Go to previous version of thie paste'; else echo 'No predecessor available'; ?></button> 
       </div>
     </header>
     <form id="pastebee-form">
@@ -67,15 +71,14 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 	     <option value="text/markdown" <?php echo $paste&&$paste['mime']=='text/markdown'?'selected':''; ?>>Markdown (text/markdown)</option>
              <option value="text/javascript" <?php echo $paste&&$paste['mime']=='text/javascript'?'selected':''; ?>>Javascript (text/javascript)</option>
              <option value="application/json" <?php echo $paste&&$paste['mime']=='application/json'?'selected':''; ?>>JSON (application/json)</option>
-	     <option value="text/css" <?php echo $paste&&$paste['mime']=='text/javascript'?'selected':''; ?>>CSS Stylesheet (text/css)</option>
+	     <option value="text/css" <?php echo $paste&&$paste['mime']=='text/css'?'selected':''; ?>>CSS Stylesheet (text/css)</option>
 	     <option value="text/x-javasource" <?php echo $paste&&$paste['mime']=='text/x-javasource'?'selected':''; ?>>Java Code (text/x-javasource)</option>
 	     <option value="text/x-script.python" <?php echo $paste&&$paste['mime']=='text/x-script.python'?'selected':''; ?>>Python (text/x-script.python)</option>
 	     <option value="text/x-c" <?php echo $paste&&$paste['mime']=='text/x-c'?'selected':''; ?>>C/C++ (text/x-c)</option>
 	     <option value="text/x-script.sh" <?php echo $paste&&$paste['mime']=='text/x-script.sh'?'selected':''; ?>>Shell/Bash (text/x-script.sh)</option>
           </select>
           <input type="checkbox" name="public" id="public" class="d-hidden fancy-fa-togglebutton" <?php echo !$paste||$paste['public'] ? 'checked' : ''; ?><?php if( !$_editmode ) echo ' disabled'?>><label for="public">Public</label>
-                                                                                                                      <?php if( $paste ) { ?>&nbsp; | &nbsp; <?php echo $paste->created_at; } ?>
-	  &nbsp; | &nbsp; <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash ) echo 'Go to previous version of thie paste'; else echo 'No predecessor available'; ?></button> 
+          <?php if( $paste ) { ?>&nbsp; | &nbsp; <?php echo $paste->created_at; } ?>
        </div>
        <?php if( $_editmode ) { ?>
        <div class="linenos font-mono"><?php

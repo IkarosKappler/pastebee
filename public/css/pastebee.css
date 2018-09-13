@@ -7,29 +7,36 @@
 
 
 body {
-    display      : block;
-    margin       : 0px;
-    padding      : 0px;
-    height       : 100%;
-    overflow     : hidden;
+    display           : block;
+    margin            : 0px;
+    padding           : 0px;
+    height            : 100%;
+    overflow          : hidden;
 }
 
 .font-mono {
-    font-family  : monospace;
-    font-size    : 13px;
-    line-height  : 23px;
+    font-family       : monospace;
+    font-size         : 13px;
+    line-height       : 23px;
 }
 
 .pastebee header {
-    /* display      : flex;
-    align-items  : center; */
-    width        : 100%;
-    height       : 42px;
-    padding-left : 12px;
+    display           : flex;
+    align-items       : center;
+    width             : 100%;
+    height            : 42px;
+    padding-left      : 12px;
+}
+
+.pastebee header a {
+    display           : flex;
+    color             : white;
+    text-decoration   : none;
 }
 
 .pastebee header div {
-    display      : inline-block;
+    display           : flex;
+    align-items       : center;
 }
 
 .pastebee header #logo {
@@ -39,6 +46,20 @@ body {
     background        : url('../img/logo-128x128-white.png');
     background-repeat : none;
     background-size   : contain;
+    margin-right      : 4px;
+}
+
+.pastebee header #appname {
+    display           : inline-block;
+}
+
+.pastebee header #version {
+    display           : inline-block;
+    font-size         : 7pt;
+}
+
+.pastebee header * form {
+    display           : flex;
 }
 
 .pastebee .info {
@@ -151,4 +172,35 @@ td.hljs-ln-code {
 td.hljs-ln-code div.hljs-ln-line:before {
     display : inline-block;
     content : " ";
+}
+
+
+/* Add a break point for smaller devices */
+@media only screen and (max-width: 720px) {
+    .pastebee .info {
+	height       : 112px;
+    }
+    .pastebee .linenos {
+	top           : 154px;
+	height        : calc( 100% - 154px );
+    }
+    .pastebee textarea, .pastebee pre {
+	top          : 154px;
+	height       : calc( 100% - 154px );
+    }
+}
+
+/* Add a break point for really small evices */
+@media only screen and (max-width: 380px) {
+    .pastebee .info {
+	height       : 132px;
+    }
+    .pastebee .linenos {
+	top           : 174px;
+	height        : calc( 100% - 174px );
+    }
+    .pastebee textarea, .pastebee pre {
+	top          : 174px;
+	height       : calc( 100% - 174px );
+    }
 }
