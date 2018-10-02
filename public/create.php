@@ -10,6 +10,7 @@
 // --------- Load Illuminate/Eloquent ---------------------------
 require '../start.php';
 require '../inc/class.RequestValidator.inc.php';
+require '../inc/function.make_link.inc.php';
 use Models\Paste; 
 use Controllers\PasteController;
 
@@ -55,6 +56,7 @@ try {
     mail( NOTIFICATION_EMAIL,
           'Paste stored (id='.$paste->id.').',
           'Paste was stored (remote_address=' . $paste->hashed_ip . ")\n".
+	  'URL: ' . make_link('/?hash=' . $paste->hash) . "\n" .
           'content: ' . $paste->content
     );
 } catch( Exception $e ) {

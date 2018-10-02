@@ -53,6 +53,27 @@ window.PASTEBEE_VERSION = '1.0.1';
     }
 
     // +---------------------------------------------------------------
+    // | Toggle a class on/off in the given element.
+    // |
+    // | @param HTMLElement The DOM element to remove the class from.
+    // | @param string      The class's name.
+    // +-----------------------------------------------------
+    function toggleClass(element,name)
+    {
+	var arr;
+	arr = element.className.split(" ");
+	var pos;
+	if( (pos = arr.indexOf(name)) != -1 ) {
+	    arr.splice(pos,1);
+            element.className = arr.join(' ');
+	    return false;
+	} else {
+	    element.className += " " + name;
+	    return true;
+	}
+    }
+
+    // +---------------------------------------------------------------
     // | Get the current paste's hash (from the document metadata).
     // | 
     // | If currently no paste is loaded the function returns null.
@@ -135,6 +156,15 @@ window.PASTEBEE_VERSION = '1.0.1';
     }
 
 
+    function clearSearch( hideSearchContainer ) {
+
+	if( hideSearchContainer )
+	    addClass(document.getElementById('search-container'),'d-none');
+
+	document.getElementById('search-input').value = '';
+	
+    };
+
     
     // +---------------------------------------------------------------
     // | Initialize the pastebee app.
@@ -148,8 +178,10 @@ window.PASTEBEE_VERSION = '1.0.1';
 	    document.body.addEventListener('mousemove', function(event) {
 		if( event.clientY < 76 )
 		    removeClass(header,'mtop-transition-36px');
-		else
+		else {
 		    addClass(header,'mtop-transition-36px');
+		    clearSearch(true);
+		}
 	    } );
 
 	    addClass( header, 'mtop-transition-36px' );
@@ -202,8 +234,23 @@ window.PASTEBEE_VERSION = '1.0.1';
 	    } );
 	}
 
+	document.getElementById('search-icon').addEventListener( 'click', function(e) {
+	    var visible = !toggleClass( document.getElementById('search-container'), 'd-none' );
+	} );
+
+	document.getElementById('search-input').addEventListener( 'keyup', function(e) {
+	    // Start search
+	    var term = e.target.value;
+	    console.log('Going to search for ' + term );
+	    
+	} );
+	
+	document.getElementById('search-container').addEventListener('mouseout',function(e) {
+	    clearSearch(true);
+	} );
+
 	document.getElementById('btn-new').addEventListener('click', function(e) {
-	    console.log( 'new ...' );
+	    // Just jump to the start page.
 	    window.location.href = "/";
 	} );
 

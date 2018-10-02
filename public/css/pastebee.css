@@ -58,6 +58,25 @@ body {
     font-size         : 7pt;
 }
 
+.pastebee header .search-wrapper {
+    
+}
+
+.pastebee header .search-wrapper #search-icon {
+    cursor            : pointer;
+}
+
+.pastebee header .search-wrapper #search-container {
+    background        : white;
+    min-height        : 32px;
+    min-width         : 128px;
+    position          : relative;
+    left              : 0px;
+    top               : 32px;
+    z-index           : 9999;
+    transform         : translateX(-100%);
+}
+
 .pastebee header * form {
     display           : flex;
 }
@@ -103,9 +122,13 @@ body {
 
 /* Helper classes */
 .center-v {
-    position     : relative;
-    top          : 50%;
-    transform    : translateY(-50%);
+    position           : relative;
+    top                : 50%;
+    transform          : translateY(-50%);
+}
+
+.d-none {
+    display            : none !important;
 }
 
 .mtop-transition-0px {

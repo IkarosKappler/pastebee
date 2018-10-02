@@ -15,3 +15,5 @@ defined("DBPASS")or define('DBPASS',_env('DBPASS','yourpass'));
 defined("THEME")or define('THEME',_env('THEME','default'));
 
 defined("NOTIFICATION_EMAIL")or define('NOTIFICATION_EMAIL',_env('NOTIFICATION_EMAIL','default'));
+
+defined("BASE_URL")or define('BASE_URL',_env('BASE_URL',$_SERVER['HTTP_HOST']));

@@ -71,6 +71,9 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 ### Changelog
+* 2018-10-01
+  * Added the BASE_URL field to the .env file (for email notification links).
+  * Added the make_link function.
 * 2018-09-13
   * Raised the max paste size from 2048 bytes to 10240 bytes (10 KB).
   * Fixed a display issue with the download button.

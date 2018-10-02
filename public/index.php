@@ -44,7 +44,6 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
          <a href="index.php">
             <div id="logo"></div>
             <div id="appname">pastebee</div>
-	    <sup id="version"><script>document.write(PASTEBEE_VERSION);</script></sup>
 	 </a>
 	 | <button type="button" id="btn-new">New</button>
 	 <?php if( $paste ) { ?>
@@ -57,7 +56,14 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
          <?php if( $_editmode ) { ?>
          | <button type="button" id="btn-save">Save</button> 
          <?php } ?>
-	 | <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash || $paste->parent_hash=='null' ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash && $paste->parent_hash!='null' ) echo 'Go to previous version of thie paste'; else echo 'No predecessor available'; ?></button> 
+	 | <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash || $paste->parent_hash=='null' ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash && $paste->parent_hash!='null' ) echo 'Go to previous version of thie paste'; else echo 'No predecessor available'; ?></button>
+	 | <div class="search-wrapper">
+	   	<i id="search-icon" class="icon-search"></i>
+		<div id="search-container" class="d-none">
+		     <input type="text" id="search-input" placeholder="Not yet implemented">X
+		</div>
+	   </div>
+	 
       </div>
     </header>
     <form id="pastebee-form">

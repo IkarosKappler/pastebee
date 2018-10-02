@@ -8,4 +8,4 @@
 $pastes = (include '../inc/list.inc.php');
 
 header( 'Content-Type: application/json; charset=utf-8' );
-echo json_encode( $pastes );
+echo json_encode( $pastes, JSON_PRETTY_PRINT );
