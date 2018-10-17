@@ -12,6 +12,10 @@
 function mkenv( $filename = '.env' ) {
     if( file_exists($filename) && is_readable($filename) ) {
         $envvars = parse_ini_file( $filename );
+	if( !$envvars ) {
+	    header( 'HTTP/1.1 500 Internal Server Error' );
+	    die( 'Failed to load .env file. Check for syntax errors.' );
+	}
         define( '_CUSTOM_ENV_VARS', $envvars );
     }
 }

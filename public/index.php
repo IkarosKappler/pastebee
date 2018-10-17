@@ -30,7 +30,7 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
 
 
     <link rel="stylesheet" href="css/fontawesome-3.2.1/css/font-awesome.css">
-    <link rel="stylesheet" href="css/highlightjs-default.min.css">
+    <link rel="stylesheet" href="css/highlightjs-styles/<?php echo HIGHLIGHTJS_STYLE; ?>.css">
     <Link rel="stylesheet" href="css/pastebee.css">
     <link rel="stylesheet" href="css/theme.<?php echo THEME; ?>.css">
     <script src="js/pastebee.js"></script>
@@ -45,22 +45,25 @@ $_editmode = (!array_key_exists('hash',$_GET) || !$_GET['hash'] || (array_key_ex
             <div id="logo"></div>
             <div id="appname">pastebee</div>
 	 </a>
-	 | <button type="button" id="btn-new">New</button>
+	 | <button type="button" id="btn-new"><i class="icon-file-alt"></i></button>
 	 <?php if( $paste ) { ?>
-	 | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'Close':'Edit'; ?></button>          
+	 | <button type="button" id="btn-edit" data-action="<?php echo $_editmode?'close':'edit'; ?>"><?php echo $_editmode?'<i class="icon-undo"></i>':'<i class="icon-edit"></i>'; ?></button>
+             <?php if( !$_editmode ) { ?>
 	 | <form action="raw.php" method="get" target="_blank">
 	      <input type="hidden" name="hash" value="<?php echo $paste['hash']; ?>">
-	      <button type="submit">Download</button>
-	   </form>                    
+	      <button type="submit"><i class="icon-cloud-download"></i></button>
+	   </form>
+             <?php } ?>
 	 <?php } ?>
          <?php if( $_editmode ) { ?>
-         | <button type="button" id="btn-save">Save</button> 
+         | <button type="button" id="btn-save"><i class="icon-ok"></i></button> 
          <?php } ?>
-	 | <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash || $paste->parent_hash=='null' ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash && $paste->parent_hash!='null' ) echo 'Go to previous version of thie paste'; else echo 'No predecessor available'; ?></button>
+	 | <button type="button" id="btn-loadParent" data-action="load-parent" <?php if( $_editmode || !$paste || !$paste->parent_hash || $paste->parent_hash=='null' ) echo ' disabled' ?>><?php if( $paste && $paste->parent_hash && $paste->parent_hash!='null' ) echo '<i class="icon-level-up"></i>'; else echo '<i class="icon-minus-sign"></i>'; ?></button>
 	 | <div class="search-wrapper">
 	   	<i id="search-icon" class="icon-search"></i>
 		<div id="search-container" class="d-none">
-		     <input type="text" id="search-input" placeholder="Not yet implemented">X
+		     <input type="text" id="search-input" placeholder="Search for"><a id="clear-search"><i class="icon-remove"></i></a>
+		     <div id="search-results"></div>  
 		</div>
 	   </div>
 	 

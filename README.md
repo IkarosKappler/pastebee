@@ -8,7 +8,7 @@ See a demo here https://pastebee.func.name/
 
 
 ### Current Version
-1.0.1 (built 2018-09-13)
+1.0.3 (built 2018-10-17)
 
 
 ## Installation
@@ -71,6 +71,17 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 
 
 ### Changelog
+* 2018-10-16
+  * Added the HIGHLIGHTJS_STYLE setting to the .env file.
+  * Added the current set of styles to the css directory.
+  * Changed the hightlightjs theme to a11y-light.
+  * Replaced the '#' comments in the .env file by ';' comments (required since php7).
+  * Terminating the app (with HTTP status 500) on .env configuration errors.
+* 2018-10-02
+  * Changed the themes: added search box styling.
+  * Implemented the basic search interface.
+  * Replaced button labels by fancy FontAwesome icons.
+  * Extended the list result by one field: created_at.
 * 2018-10-01
   * Added the BASE_URL field to the .env file (for email notification links).
   * Added the make_link function.
@@ -112,5 +123,9 @@ Setup your web server (apache, nginx, ...) to point your public root directory a
 ### References
 * I used this tutorial for the Eloquent standalone howto
   * https://code.tutsplus.com/tutorials/using-illuminate-database-with-eloquent-in-your-php-app-without-laravel--cms-27247
-* This app uses FontAwesome for toggle icons
-  * https://fontawesome.com/
+* This app uses FontAwesome icons (version 3.2.1)
+  * [https://fontawesome.com/](https://fontawesome.com/)
+* For syntax highlighting I use hightlight.js
+  * [https://highlightjs.org/](https://highlightjs.org/)
+  * [https://github.com/highlightjs/highlight.js](https://github.com/highlightjs/highlight.js)
+  

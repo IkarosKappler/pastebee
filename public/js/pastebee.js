@@ -1,10 +1,10 @@
 /**
  * @author  Ikaros Kappler
  * @date    2018-07-06
- * @version 1.0.1
+ * @version 1.0.2
  **/
 
-window.PASTEBEE_VERSION = '1.0.1';
+window.PASTEBEE_VERSION = '1.0.2';
 
 (function() {
     'use strict';
@@ -122,6 +122,38 @@ window.PASTEBEE_VERSION = '1.0.1';
     var _editmode = _GET['mode']=='edit';
 
 
+
+    // +---------------------------------------------------------------
+    // | Send an asynchronous HTTP GET request.
+    // |
+    // | @param url      The fully qualified URL to call.
+    // | @param options.onComplete An optional callback to call when the request succeeded.
+    // | @param options.onError    An optional callback to call when the request failed.
+    // +-----------------------------------------------------
+    function sendGETRequest( url, options )
+    {
+	console.log('Sending GET request to :' + url );
+	var request = new XMLHttpRequest();
+	request.open('GET', url, true);
+	request.onload = function() {
+	    if (this.status == 200 ) {
+		// Success!
+		if( options.onComplete )
+		    options.onComplete( this );
+	    } else {
+		// We reached our target server, but it returned an error
+		console.log( 'Status ' + this.status );
+		if( options.onError )
+		    options.onError( this );
+	    }
+	};
+	request.onerror = function() {
+	    // There was a connection error of some sort
+	    console.error( "Error." );
+	};
+	request.send();
+	return request;
+    }
     
     
     // +---------------------------------------------------------------
@@ -156,14 +188,27 @@ window.PASTEBEE_VERSION = '1.0.1';
     }
 
 
+    // +---------------------------------------------------------------
+    // | Clear the search input and optionally retract the search container.
+    // |
+    // | @param hideSearchContainer Specify if the search container should be retracted (set invisible).
+    // +-----------------------------------------------------
     function clearSearch( hideSearchContainer ) {
 
 	if( hideSearchContainer )
 	    addClass(document.getElementById('search-container'),'d-none');
 
 	document.getElementById('search-input').value = '';
-	
+	clearSearchResults();
     };
+
+
+    // +---------------------------------------------------------------
+    // | Clear the search result display.
+    // +-----------------------------------------------------
+    function clearSearchResults() {
+	document.getElementById('search-results').innerHTML = '';
+    }
 
     
     // +---------------------------------------------------------------
@@ -171,6 +216,7 @@ window.PASTEBEE_VERSION = '1.0.1';
     // +-----------------------------------------------------
     function init()
     {
+	// Set the menubar retractable only on desktop devices.
 	if( !mobileAndTabletcheck() ) {
 	    var header = document.getElementsByTagName('header')[0];
 	    addClass( header, 'mtop-transition-0px' );
@@ -180,13 +226,14 @@ window.PASTEBEE_VERSION = '1.0.1';
 		    removeClass(header,'mtop-transition-36px');
 		else {
 		    addClass(header,'mtop-transition-36px');
-		    clearSearch(true);
+		    // clearSearch(true);
 		}
 	    } );
 
 	    addClass( header, 'mtop-transition-36px' );
 	}
 
+	// Add listener to the 'Edit' button.
 	var btn_edit = document.getElementById('btn-edit');
 	if( btn_edit ) {
 	    btn_edit.addEventListener('click', function(e) {
@@ -201,6 +248,7 @@ window.PASTEBEE_VERSION = '1.0.1';
 	    } );
 	}
 
+	// Add listener to the 'Save' button.
 	var btn_save = document.getElementById('btn-save');
 	if( btn_save ) {
 	    btn_save.addEventListener('click', function(e) {
@@ -234,27 +282,79 @@ window.PASTEBEE_VERSION = '1.0.1';
 	    } );
 	}
 
+	// Add listener to the 'Search' icon.
 	document.getElementById('search-icon').addEventListener( 'click', function(e) {
 	    var visible = !toggleClass( document.getElementById('search-container'), 'd-none' );
+	    document.getElementById('search-input').focus();
 	} );
 
+	
+	// Add listener to the search input field (automatically search on changes).
+	var searchXHR = null;
 	document.getElementById('search-input').addEventListener( 'keyup', function(e) {
 	    // Start search
 	    var term = e.target.value;
-	    console.log('Going to search for ' + term );
+	    // console.log('Going to search for ' + term );
+	    if( !term || (term = term.trim()).length <= 2 ) {
+		document.getElementById('search-results').innerHTML = 'Enter at least 3 characters.';
+		return;
+	    }
+	    clearSearchResults();
+	    
+	    searchXHR = sendGETRequest( 'search.php?search=' + encodeURIComponent(term),
+					{ onComplete : function( request ) {
+					    if( searchXHR != request )
+						return;
+					    console.log( request );
+					    var response = JSON.parse( request.response );
+					    console.log( response );
+					    var resultContainer = document.getElementById('search-results');
+					    for( var i in response ) {
+						// console.log( 'Create result link for result record ' + i );
+						var node = document.createElement('a');
+						node.setAttribute('href','?hash='+response[i].hash);
+						node.innerHTML = '<i class="icon-caret-right"></i>&nbsp;' + response[i].created_at + '&nbsp;<i class="icon-caret-right"></i>&nbsp;' +(response[i].title ? response[i].title : 'No-title');
+						resultContainer.appendChild(node);
+					    }
+					    if( response.length == 0 )
+						resultContainer.innerHTML = 'No results.';
+					},
+					  onError : function( request ) {
+					      if( searchXHR != request )
+						return;
+					      console.error( request );
+					      if( request.status == 403 ) {
+						  var responseData = JSON.parse( request.responseText );
+						  var msg = [ responseData.message ];
+						  for( var arg in responseData.errors )
+						      msg.push( arg + ': ' + responseData.errors[arg].join('. ') ) ;
+					      }
+					      window.alert( msg.join("\n") );
+					      // Show pretty error warning here?
+					  }
+					}
+				      );
 	    
 	} );
-	
-	document.getElementById('search-container').addEventListener('mouseout',function(e) {
+
+	// Clear search if requested.
+	document.getElementById('clear-search').addEventListener( 'click', function() {
+	    clearSearch(false);
+	    document.getElementById('search-input').focus();
+	} );
+
+	// Clear search and retract search container on mouse-leave.
+	document.getElementById('search-container').addEventListener('mouseleave',function(e) {
 	    clearSearch(true);
 	} );
 
+	// Start a new paste.
 	document.getElementById('btn-new').addEventListener('click', function(e) {
 	    // Just jump to the start page.
 	    window.location.href = "/";
 	} );
 
-
+	// Load the parent paste.
 	var btn_loadParent = document.getElementById('btn-loadParent');
 	if( btn_loadParent ) {
 	    btn_loadParent.addEventListener('click', function(e) {
@@ -269,7 +369,7 @@ window.PASTEBEE_VERSION = '1.0.1';
 	    } );
 	}
 	
-
+	// If there is currently a paste loaded in display mode (not edit mode), then activate syntax highlighting.
 	if( !_editmode && _GET['hash']!=null ) {
 	    hljs.initHighlightingOnLoad();
 	    hljs.initLineNumbersOnLoad();
@@ -277,7 +377,7 @@ window.PASTEBEE_VERSION = '1.0.1';
 	    hljs.lineNumbersBlock( document.getElementById('content') );
 	}
 
-	console.log( getPasteHash() );
+	console.log( 'hash=' + getPasteHash() );
     }
 
     window.addEventListener('load',init);

@@ -19,6 +19,36 @@
     color        : #ffffff; 
 }
 
+.pastebee header .search-wrapper #search-icon { }
+
+.pastebee header .search-wrapper #search-container {
+    background    : white;
+}
+
+.pastebee header .search-wrapper #search-container #search-input {
+    background    : transparent;
+    border-left   : none;
+    border-right  : none;
+    border-top    : none;
+    border-bottom : 1px solid #f8a800;    
+    height        : 18px;
+    margin        : 2px;
+    outline       : none;
+    color         : black;
+}
+
+.pastebee header .search-wrapper #search-container #clear-search {
+    color         : grey;
+}
+
+.pastebee header .search-wrapper #search-container #search-results {
+    color         : grey;
+}
+
+.pastebee header .search-wrapper #search-container #search-results a {
+    color         : grey;
+}
+
 .pastebee .info {
     font-family  : sans-serif;
     background   : #e8e8e8;
@@ -70,7 +100,7 @@
     color        : #ffffff;
 }
 
-.pastebee textarea, .pastebee pre {
+.pastebee textarea, .pastebee input, .pastebee pre {
     border       : transparent;
     outline      : none;
 }

@@ -7,22 +7,52 @@
  **/
 
 .pastebee {
-    background   : #003333;
-    font-family  : monospace;
-    font-size    : 10pt;
+    background    : #003333;
+    font-family   : monospace;
+    font-size     : 10pt;
 }
 
 .pastebee header {
-    font-family  : "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    font-size    : 16pt;
-    background   : #f8a800;
-    color        : #ffffff; 
+    font-family   : "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size     : 16pt;
+    background    : #f8a800;
+    color         : #ffffff; 
+}
+
+.pastebee header .search-wrapper #search-icon { }
+
+.pastebee header .search-wrapper #search-container {
+    background    : white;
+}
+
+.pastebee header .search-wrapper #search-container #search-input {
+    background    : transparent;
+    border-left   : none;
+    border-right  : none;
+    border-top    : none;
+    border-bottom : 1px solid #f8a800;    
+    height        : 18px;
+    margin        : 2px;
+    outline       : none;
+    color         : black;
+}
+
+.pastebee header .search-wrapper #search-container #clear-search {
+    color         : black;
+}
+
+.pastebee header .search-wrapper #search-container #search-results {
+    color         : black;
+}
+
+.pastebee header .search-wrapper #search-container #search-results a {
+    color         : black;
 }
 
 .pastebee .info {
-    font-family  : sans-serif;
-    background   : #004444;
-    color        : white;
+    font-family   : sans-serif;
+    background    : #004444;
+    color         : white;
 }
 
 .pastebee .info input, .pastebee .info select {
@@ -69,7 +99,7 @@
     background   : #002222;
 }
 
-.pastebee textarea, .pastebee pre {
+.pastebee textarea, .pastebee input, .pastebee pre {
     border       : transparent;
     outline      : none;
 }

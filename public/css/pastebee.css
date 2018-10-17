@@ -34,6 +34,14 @@ body {
     text-decoration   : none;
 }
 
+.pastebee header a:hover {
+    text-decoration   : underline;
+}
+
+.pastebee header a:active {
+    text-decoration   : underline;
+}
+
 .pastebee header div {
     display           : flex;
     align-items       : center;
@@ -59,7 +67,9 @@ body {
 }
 
 .pastebee header .search-wrapper {
-    
+    display           : flex;
+    align-items       : right;
+    justify-content   : top;
 }
 
 .pastebee header .search-wrapper #search-icon {
@@ -67,14 +77,38 @@ body {
 }
 
 .pastebee header .search-wrapper #search-container {
+    display           : block;
     background        : white;
     min-height        : 32px;
-    min-width         : 128px;
-    position          : relative;
+    min-width         : 100vw;
+    width             : 100vw;
+    position          : absolute;
     left              : 0px;
-    top               : 32px;
+    top               : 42px;
     z-index           : 9999;
-    transform         : translateX(-100%);
+}
+
+.pastebee header .search-wrapper #search-container #search-input {
+    width             : 250px;
+}
+
+.pastebee header .search-wrapper #search-container #clear-search {
+    display           : inline-block;
+    cursor            : pointer;
+    color             : black;
+}
+
+.pastebee header .search-wrapper #search-container #search-results {
+    display           : block;
+    width             : 100%;
+    font-family       : Helvetica, Arial, sans-serif;
+    padding-left      : 16px;
+    color             : black;
+}
+
+.pastebee header .search-wrapper #search-container #search-results a {
+    color             : black;
+    font-size         : 10pt;
 }
 
 .pastebee header * form {
